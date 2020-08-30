@@ -4,6 +4,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './Nav/Nav.component';
 import { AppComponent } from './app.component';
 import {FormsModule} from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
 import { AuthService } from './Services/Auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './Register/Register.component';
@@ -19,7 +23,10 @@ import { ErrorInterceptorProvider } from './Services/Error.Interceptor';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot()
+
   ],
   providers: [
     AuthService,
