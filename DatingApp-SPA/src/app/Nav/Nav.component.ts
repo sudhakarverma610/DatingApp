@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../Services/Auth.service';
 import { AlertifyService } from '../Services/Alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-Nav',
@@ -10,22 +11,25 @@ import { AlertifyService } from '../Services/Alertify.service';
 export class NavComponent implements OnInit {
   model:any={};
   UserName:string;
-  constructor(private authService:AuthService,private alertifyService:AlertifyService) { }
+  constructor(private authService:AuthService,private alertifyService:AlertifyService,private router:Router) { }
 
   ngOnInit() {    
-      this.UserName=this.authService.decodedToken.unique_name;
+      this.UserName=this.authService.decodedToken?.unique_name;
 
   }
   Login(){
     console.log(this.model);
     this.authService.Login(this.model).subscribe(next=>{
-      this.UserName=this.authService.decodedToken.unique_name;
+      this.UserName=this.authService.decodedToken?.unique_name;
       this.alertifyService.Success("Login Successfully");
       //console.log("Login Successfully");
     },
     error=>{
       this.alertifyService.Error("UserName and Password are InValid ");
       //console.log("some Error Occured");
+    },
+    ()=>{
+      this.router.navigate(['/members']);
     })
   }
   LoggedIn(){
@@ -35,6 +39,8 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('token');
     this.alertifyService.Message("Logout user Successfully");
     //console.log("logout user Successfully");
+    
+    this.router.navigate(['/home'])
   }
  
 }
