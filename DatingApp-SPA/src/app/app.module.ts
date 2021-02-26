@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './Nav/Nav.component';
 import { AppComponent } from './app.component';
 import {FormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { JwtModule } from "@auth0/angular-jwt";
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
@@ -26,13 +26,16 @@ import { MemberListResolver } from './Resolver/member-list.resolver';
 
 
 import {NgxGalleryModule} from '@kolkov/ngx-gallery';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MemberEditResolver } from './Resolver/member-edit.resolver';
+import { PreventUnSavedGaurd } from './Guards/prevent-unsaved.gaurd';
 
 export function tokenGetter() {
-  return localStorage.getItem("token");
+  return localStorage.getItem('token');
 }
 @NgModule({
-  declarations: [							
-    AppComponent, 
+  declarations: [
+    AppComponent,
       NavComponent,
       HomeComponent,
       RegisterComponent,
@@ -40,7 +43,8 @@ export function tokenGetter() {
       ListsComponent,
       MessagesComponent,
       MemberCardComponent,
-      MemberDetailComponent
+      MemberDetailComponent,
+      MemberEditComponent
    ],
   imports: [
     BrowserModule,
@@ -48,9 +52,9 @@ export function tokenGetter() {
     TabsModule.forRoot(),
     JwtModule.forRoot({
       config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:5000"],
-        disallowedRoutes: ["localhost:5000/api/Auth"],
+        tokenGetter,
+        allowedDomains: ['localhost:5000'],
+        disallowedRoutes: ['localhost:5000/api/Auth'],
       },
     }),
     NgxGalleryModule,
@@ -62,9 +66,11 @@ export function tokenGetter() {
   ],
   providers: [
     AuthService,
+    PreventUnSavedGaurd,
     ErrorInterceptorProvider,
     MemberDetailResolver,
-    MemberListResolver
+    MemberListResolver,
+    MemberEditResolver
   ],
   bootstrap: [AppComponent]
 })

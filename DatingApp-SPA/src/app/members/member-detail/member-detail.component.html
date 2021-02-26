@@ -1,8 +1,11 @@
 <div class="container mt-4">
+ 
   <div class="row">
     <div class="col-4">
       <div class="card">
-        <img src="{{user.photoUrl}}" alt="{{user.knowAs }}" class="card-image-top img-thumbnail">
+       <img *ngIf="user.photoUrl" src="{{user.photoUrl}}" alt="{{user.knowAs }}" class="card-image-top img-thumbnail">
+        <img *ngIf="!user.photoUrl" src="assets/img/avtars/default.png" alt="{{user.knowAs }}" class="card-image-top img-thumbnail">
+
         <div class="card-body">
           <div>
             <strong>Locations:</strong>
