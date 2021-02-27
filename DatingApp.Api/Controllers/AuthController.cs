@@ -33,11 +33,13 @@ namespace DatingApp.Api.Controllers
             {
                 return new BadRequestObjectResult("User All Ready Exists");
             }
-            var userToCreate=new User(){
-                UserName=userRegistrationDto.Username
-            };
+            var userToCreate=_mapper.Map<User>(userRegistrationDto);
+            //var userToCreate=new User(){
+            //    UserName=userRegistrationDto.Username
+            //};
             var createUser= await  _authRepository.Register(userToCreate,userRegistrationDto.Password);
-            return new StatusCodeResult(201);
+            return CreatedAtRoute("GetUser", new { Controller = "User", Id = createUser.Id }, _mapper.Map<UserDetailDto>(createUser));
+            //return new StatusCodeResult(201);
         }
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody]UserLoginDto  userLoginDto){

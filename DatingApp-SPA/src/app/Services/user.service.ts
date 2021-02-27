@@ -26,4 +26,7 @@ UpdateUser(id: number, user: User){
 SetPhotoAsMain(photoId: number, userId: number){
   return this.http.post(`${this.baseUrl}users/${userId}/photos/${photoId}/setMain`, {});
 }
+DeletePhoto(photoId: number, userId: number){
+  return this.http.delete(`${this.baseUrl}users/${userId}/photos/${photoId}/delete`);
+}
 }

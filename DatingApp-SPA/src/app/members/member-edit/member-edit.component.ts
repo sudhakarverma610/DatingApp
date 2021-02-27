@@ -45,5 +45,4 @@ export class MemberEditComponent implements OnInit {
    // console.log($event);
     this.user.photoUrl = $event;
   }
-
 }

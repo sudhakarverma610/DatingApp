@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './Nav/Nav.component';
 import { AppComponent } from './app.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtModule } from '@auth0/angular-jwt';
 
@@ -30,6 +30,7 @@ import { PhotoEditorComponent } from './members/photoEditor/photoEditor.componen
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
 
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -62,8 +63,11 @@ export function tokenGetter() {
     NgxGalleryModule,
     FileUploadModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+
     RouterModule.forRoot(appRoutes)
 
   ],

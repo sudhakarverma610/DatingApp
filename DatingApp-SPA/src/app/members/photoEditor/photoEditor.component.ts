@@ -50,6 +50,11 @@ export class PhotoEditorComponent implements OnInit {
           isMain: res.isMain
         };
         this.photos.push(photo);
+        if (res.isMain){
+          this.authService.photoUrl.next(photo.url);
+          localStorage.setItem('photoUrl', photo.url);
+          this.mainPhotoChanged.emit(photo.url);
+         }
       }
     };
   }
@@ -57,7 +62,10 @@ export class PhotoEditorComponent implements OnInit {
     this.userService.SetPhotoAsMain(photo.id, this.authService.decodedToken.nameid).subscribe(res => {
       console.log('Successfully set as Main');
       /** setting current photo as false  */
-      this.photos.filter(x => x.isMain === true)[0].isMain = false;
+      const currentMainPhoto = this.photos.filter(x => x.isMain === true);
+      if (currentMainPhoto.length > 0) {
+        this.photos.filter(x => x.isMain === true)[0].isMain = false;
+      }
       this.photos.filter(x => x.id === photo.id)[0].isMain = true;
       this.authService.photoUrl.next(photo.url);
       localStorage.setItem('photoUrl', photo.url);
@@ -65,6 +73,18 @@ export class PhotoEditorComponent implements OnInit {
     },
     error => {
       this.alert.Error(error);
+    });
+  }
+  DeletePhoto(photo: Photo){
+    this.alert.Confirm('Are You Sure You Really want to Delete ', () => {
+      this.userService.DeletePhoto(photo.id, this.authService.decodedToken.nameid).subscribe(res => {
+        this.alert.Success('Photo Delete Success');
+        this.photos = [...this.photos.filter(p => p.id !== photo.id)];
+      },
+     error => {
+       console.log(error);
+       this.alert.Error('UnKnow Error: Photo Please Contact Admin');
+     });
     });
   }
 }

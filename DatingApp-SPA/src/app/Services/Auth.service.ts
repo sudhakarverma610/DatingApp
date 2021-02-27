@@ -24,6 +24,7 @@ Login(model: any){
         localStorage.setItem('token', user.token);
         const LoginUser = user.user as User;
         localStorage.setItem('photoUrl', LoginUser.photoUrl);
+        this.photoUrl.next(LoginUser.photoUrl);
       }
       this.decodedToken = this.JwtHelper.decodeToken(user.token);
       console.log(this.decodedToken);

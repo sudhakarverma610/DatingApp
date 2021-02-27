@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../Services/Auth.service';
 import { AlertifyService } from '../Services/Alertify.service';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-Nav',
@@ -11,13 +12,18 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
   model: any = {};
   UserName: string;
-  photoUrl;
+  photoUrl = 'assets/img/avtars/default.png';
   constructor(public authService: AuthService, private alertifyService: AlertifyService, private router: Router) { }
 
   ngOnInit() {
       this.UserName = this.authService.decodedToken?.unique_name;
       this.authService.photoUrl.subscribe(url => {
-        this.photoUrl = url;
+        if (!url || url === 'null'){
+          this.photoUrl = 'assets/img/avtars/default.png';
+        }else{
+          this.photoUrl = url;
+        }
+
       });
   }
   Login(){
