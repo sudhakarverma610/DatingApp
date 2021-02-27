@@ -67,8 +67,8 @@
             
           </tab>
           <tab heading="Edit Photos">
-            <h4>Interests</h4>
-            <p>{{user.interests}}</p>
+           
+            <app-photoEditor [photos]="user.photos" (mainPhotoChanged)="memberPhotoMainChanged($event);"></app-photoEditor>
           </tab>
           
         </tabset>
@@ -76,4 +76,4 @@
     </div>
   </div>
 </div>
-{{user|json}}
+<!-- {{user|json}} -->

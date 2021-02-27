@@ -22,13 +22,14 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MemberDetailResolver } from './Resolver/member-detail.resolver';
-import { MemberListResolver } from './Resolver/member-list.resolver';
-
-
-import {NgxGalleryModule} from '@kolkov/ngx-gallery';
+import { MemberListResolver } from './Resolver/member-list.resolver'; 
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberEditResolver } from './Resolver/member-edit.resolver';
 import { PreventUnSavedGaurd } from './Guards/prevent-unsaved.gaurd';
+import { PhotoEditorComponent } from './members/photoEditor/photoEditor.component';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { FileUploadModule } from 'ng2-file-upload';
+
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -44,7 +45,8 @@ export function tokenGetter() {
       MessagesComponent,
       MemberCardComponent,
       MemberDetailComponent,
-      MemberEditComponent
+      MemberEditComponent,
+      PhotoEditorComponent
    ],
   imports: [
     BrowserModule,
@@ -58,6 +60,7 @@ export function tokenGetter() {
       },
     }),
     NgxGalleryModule,
+    FileUploadModule,
     FormsModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),

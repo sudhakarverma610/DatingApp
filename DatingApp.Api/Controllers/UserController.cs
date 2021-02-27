@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using DatingApp.Api.Helpers;
+using Microsoft.Extensions.Options;
 
 namespace DatingApp.Api.Controllers
 {
@@ -19,11 +21,13 @@ namespace DatingApp.Api.Controllers
     {
         private IDatingRespository _datingRespository;
         private IMapper _mapper;
-
-        public UserController(IDatingRespository datingRespository,IMapper mapper)
+        private IOptions<CloudinarySetting> _cloudinarySetting;
+        public UserController(IDatingRespository datingRespository,IMapper mapper,
+            IOptions<CloudinarySetting> cloudinarySetting)
         {
             _datingRespository = datingRespository;
             _mapper = mapper;
+            _cloudinarySetting = cloudinarySetting;
         }
         [HttpGet]
         public async Task<IActionResult> GetUsers()

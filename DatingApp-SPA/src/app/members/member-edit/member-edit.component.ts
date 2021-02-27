@@ -1,7 +1,6 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { error } from 'protractor';
+import { ActivatedRoute } from '@angular/router'; 
 import { User } from 'src/app/models/user';
 import { AlertifyService } from 'src/app/Services/Alertify.service';
 import { UserService } from 'src/app/Services/user.service';
@@ -41,6 +40,10 @@ export class MemberEditComponent implements OnInit {
       this.alert.Error(error);
     });
 
+  }
+  memberPhotoMainChanged($event){
+   // console.log($event);
+    this.user.photoUrl = $event;
   }
 
 }

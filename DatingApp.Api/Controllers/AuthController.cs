@@ -1,3 +1,4 @@
+using AutoMapper;
 using DatingApp.Api.Data;
 using DatingApp.Api.Dto;
 using DatingApp.Api.Model;
@@ -16,9 +17,11 @@ namespace DatingApp.Api.Controllers
     public class AuthController:ControllerBase
     {
       private readonly  IAuthRepository _authRepository;
-        public AuthController(IAuthRepository authRepository)
+        private IMapper _mapper;
+        public AuthController(IAuthRepository authRepository, IMapper mapper)
         {
           _authRepository=authRepository;
+            _mapper = mapper;
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]UserRegistrationDto userRegistrationDto){
@@ -58,7 +61,7 @@ namespace DatingApp.Api.Controllers
             };
             var tokenHandler=new JwtSecurityTokenHandler();
             var token=tokenHandler.CreateToken(tokenDecriptor);
-            return new OkObjectResult(new {token=tokenHandler.WriteToken(token)});
+            return new OkObjectResult(new {token=tokenHandler.WriteToken(token),user=_mapper.Map<UserDetailDto>(LoginedUser)});
 
         }
     }

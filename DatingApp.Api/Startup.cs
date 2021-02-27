@@ -59,6 +59,7 @@ namespace DatingApp.Api
             });
             services.AddTransient<SeedData>();
             var assesmbly=typeof(DatingRespository).Assembly;
+            services.Configure<CloudinarySetting>(Configuration.GetSection("CloudinarySetting"));
             services.AddAutoMapper(assesmbly);
 
             services.AddScoped<IAuthRepository,AuthRepository>();

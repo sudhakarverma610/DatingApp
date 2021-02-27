@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from '../models/user';
 import { map } from 'rxjs/operators';
 @Injectable({
@@ -9,6 +9,8 @@ import { map } from 'rxjs/operators';
 })
 export class UserService {
 baseUrl = environment.baseUrl;
+ PhotoUpdate = new Subject<number>();
+
 constructor(private http: HttpClient) { }
 
   getUsers(): Observable<User[]>{
@@ -20,5 +22,8 @@ constructor(private http: HttpClient) { }
 }
 UpdateUser(id: number, user: User){
   return this.http.put(`${this.baseUrl}User/${id}`, user);
+}
+SetPhotoAsMain(photoId: number, userId: number){
+  return this.http.post(`${this.baseUrl}users/${userId}/photos/${photoId}/setMain`, {});
 }
 }

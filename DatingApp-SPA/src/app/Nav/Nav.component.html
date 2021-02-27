@@ -14,6 +14,7 @@
       
     </ul>
     <div dropdown   *ngIf="LoggedIn();" class="dropdown">
+      <img [src]="photoUrl" class="top-logo" alt="alt">
       <a  dropdownToggle  class="dropdown-toggle text-light">
         Welcome {{UserName | titlecase}}
       </a>
