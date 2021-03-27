@@ -1,0 +1,16 @@
+﻿CREATE PROCEDURE [dbo].[RF_InsertLog]
+	@LogLevelId int = 0,
+	@ShortMessage nvarchar(max)='',
+	@FullMessage nvarchar(max)='',
+	@CustomerId int=0,
+	@IpAddress nvarchar(max)='',
+	@PageUrl nvarchar(max)='',
+ 	@ReferrerUrl nvarchar(max)='',
+	@CreatedOnUtc datetime
+
+AS
+	Insert Into dbo.Log (ShortMessage,FullMessage,IpAddress,CustomerId,PageUrl,ReferrerUrl,LogLevelId,CreatedOnUtc)
+				values(@ShortMessage,@FullMessage,@IpAddress,@CustomerId,@PageUrl,@ReferrerUrl,@LogLevelId,@CreatedOnUtc);
+
+RETURN 0
+   
